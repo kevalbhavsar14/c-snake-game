@@ -116,6 +116,7 @@ void main()
 DWORD WINAPI input(LPVOID inputVar)
 {
     Position *inputDir = (Position *)inputVar;
+    Position temp;
     char key;
     while (1)
     {
@@ -124,28 +125,33 @@ DWORD WINAPI input(LPVOID inputVar)
         {
         case 'w':
         case 'W':
-            inputDir->x = 0;
-            inputDir->y = -1;
+            temp.x = 0;
+            temp.y = -1;
             break;
 
         case 'a':
         case 'A':
-            inputDir->x = -1;
-            inputDir->y = 0;
+            temp.x = -1;
+            temp.y = 0;
             break;
 
         case 's':
         case 'S':
-            inputDir->x = 0;
-            inputDir->y = 1;
+            temp.x = 0;
+            temp.y = 1;
             break;
 
         case 'd':
         case 'D':
-            inputDir->x = 1;
-            inputDir->y = 0;
+            temp.x = 1;
+            temp.y = 0;
             break;
         }
+        if (inputDir->x + temp.x == 0 && inputDir->y + temp.y == 0)
+        {
+            continue;
+        }
+        *inputDir = temp;
     }
 }
 
